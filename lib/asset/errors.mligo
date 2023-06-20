@@ -1,5 +1,5 @@
 type t = string
 
-let notEnoughBalance   = "NotEnoughBalance"
-let notEnoughAllowance = "NotEnoughAllowance"
+let not_enough_balance   = "NotEnoughBalance"
+let not_enough_allowance = "NotEnoughAllowance"
 let vulnerable_operation = "Switching allowances from N to M is a vulnerability"

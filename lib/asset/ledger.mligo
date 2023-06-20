@@ -18,7 +18,7 @@ let update_for_user (ledger:t) (owner: owner) (amount_ : amount_) (allowances : 
 let set_approval (ledger:t) (owner: owner) (spender : spender) (allowed_amount: amount_) : t =
       let (tokens, allowances) = get_for_user ledger owner in
       let previous_allowances = Allowance.get_allowed_amount allowances spender in
-      let _ = Test.assert_with_error (previous_allowances = 0n || allowed_amount = 0n) Errors.vulnerable_operation in
+      let _ = assert_with_error (previous_allowances = 0n || allowed_amount = 0n) Errors.vulnerable_operation in
       let allowances = Allowance.set_allowed_amount allowances spender allowed_amount in
       let ledger = update_for_user ledger owner tokens allowances in
       ledger
@@ -31,8 +31,8 @@ let decrease_token_amount_for_user (ledger : t) (spender : spender) (from_ : own
     else
         Allowance.get_allowed_amount allowances spender 
     in
-    let _ = assert_with_error (allowed_amount >= amount_) Errors.notEnoughAllowance in
-    let _ = assert_with_error (tokens >= amount_) Errors.notEnoughBalance in
+    let _ = assert_with_error (allowed_amount >= amount_) Errors.not_enough_allowance in
+    let _ = assert_with_error (tokens >= amount_) Errors.not_enough_balance in
     let tokens = abs(tokens - amount_) in
     let ledger = update_for_user ledger from_ tokens allowances in
     ledger
