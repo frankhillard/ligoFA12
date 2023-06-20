@@ -9,15 +9,11 @@ type originated = {
 }
 
 (* Base storage *)
-let base_storage (ledger, token_metadata, total_supply : Asset.FA12.Ledger.t * Asset.FA12.TokenMetadata.t * nat) : Asset.storage = {
+let base_storage (ledger, token_metadata, total_supply, metadata : Asset.FA12.Ledger.t * Asset.FA12.TokenMetadata.t * nat * Asset.FA12.Storage.Metadata.t) : Asset.storage = {
     ledger = ledger;
     token_metadata = token_metadata;
-    totalSupply = total_supply;
-    //   metadata = Big_map.literal [
-    //     ("", Bytes.pack("tezos-storage:contents"));
-    //     ("contents", ("": bytes))
-    //   ];
-    //metadata = Big_map.literal([(("contents" : string), ("536563757265" : bytes))]);
+    total_supply = total_supply;
+    metadata = metadata;
 }
 
 (* Originate a Asset contract with given init_storage storage *)
@@ -27,6 +23,7 @@ let originate (init_storage : Asset.storage) =
     let addr = Tezos.address contr in
     {addr = addr; taddr = taddr; contr = contr}
 
+(* Verifies allowance amount for a given owner and spender *)
 let assert_allowance
     (contract_address : (Asset.parameter, Asset.storage) typed_address )
     (owner : address)
@@ -43,7 +40,7 @@ let assert_allowance
         () 
     | None -> failwith "incorret address"
     
-
+(* Verifies balances of 3 accounts *)
 let assert_balances
   (contract_address : (Asset.parameter, Asset.storage) typed_address )
   (a, b, c : (address * nat) * (address * nat) * (address * nat)) =

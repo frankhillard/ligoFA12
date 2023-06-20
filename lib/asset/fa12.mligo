@@ -43,7 +43,7 @@ let getBalance ((owner,callback), s : getBalance * storage) : operation list * s
 // /** getTotalSupply entrypoint */
 type getTotalSupply = (unit * nat contract)
 let getTotalSupply ((_,callback), s : getTotalSupply * storage) : operation list * storage =
-   let operation = Tezos.transaction s.totalSupply 0tez callback in
+   let operation = Tezos.transaction s.total_supply 0tez callback in
    ([operation], s)
 
 type parameter = 

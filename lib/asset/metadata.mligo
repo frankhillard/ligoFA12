@@ -1,0 +1,1 @@
+type t = (string, bytes) big_map

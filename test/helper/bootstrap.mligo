@@ -1,7 +1,7 @@
 #import "asset.mligo" "Asset_helper"
 
 let boot_accounts () =
-    let () = Test.reset_state 7n ([10000000tez;4000000tez;4000000tez;4000000tez;4000000tez;4000000tez;4000000tez] : tez list) in
+    let () = Test.reset_state 7n ([10000000tez; 4000000tez; 4000000tez; 4000000tez; 4000000tez; 4000000tez; 4000000tez] : tez list) in
     let accounts =
         Test.nth_bootstrap_account 1,
         Test.nth_bootstrap_account 2,
@@ -32,8 +32,12 @@ let boot_asset_and_accounts (a, b, c : nat * nat * nat) =
     let token_metadata = 
         { token_id   = 0n; token_info = token_info; }
     in
-    // TO DO : add metadata
+    let metadata = Big_map.literal([
+        ("", Bytes.pack("tezos-storage:contents"));
+        ("contents", ("54657374546F6B656E": bytes))
+      ]) 
+    in
     let asset = Asset_helper.originate(
-        Asset_helper.base_storage(ledger, token_metadata, a + b + c)
+        Asset_helper.base_storage(ledger, token_metadata, a + b + c, metadata)
     ) in
     asset, owners, ops

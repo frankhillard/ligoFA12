@@ -16,8 +16,13 @@ test = @$(LIGO) run test $(project_root) ./test/$(1)
 # ^ run given test file
 
 
-.PHONY: test
-test: ## run tests (SUITE=single_asset make test)
+.PHONY: test compile
+compile: ## compile contracts to Michelson
+	@mkdir -p compiled
+	@$(call compile,../test/asset.instance.mligo,asset_instance.tz,)
+	# @$(call compile,../test/asset.instance.mligo,asset_instance.json,--format json)
+
+test: ## run tests (SUITE=asset_approve make test)
 ifndef SUITE
 	@$(call test,asset_transfer.test.mligo)
 	@$(call test,asset_approve.test.mligo)
