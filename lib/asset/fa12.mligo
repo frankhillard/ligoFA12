@@ -176,11 +176,11 @@ type parameter =
 | GetBalance of getBalance 
 | GetTotalSupply of getTotalSupply
 
-let main ((p,s): (parameter * storage)) : operation list * storage =
-    match p with
-      Transfer pp -> transfer pp s
-    | Approve p-> approve p s
-    | GetAllowance p-> getAllowance p s
-    | GetBalance p-> getBalance p s
-    | GetTotalSupply p-> getTotalSupply p s
+// let main ((p,s): (parameter * storage)) : operation list * storage =
+//     match p with
+//       Transfer pp -> transfer pp s
+//     | Approve p-> approve p s
+//     | GetAllowance p-> getAllowance p s
+//     | GetBalance p-> getBalance p s
+//     | GetTotalSupply p-> getTotalSupply p s
 
