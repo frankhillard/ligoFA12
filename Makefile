@@ -19,7 +19,8 @@ test = @$(LIGO) run test $(project_root) ./test/$(1)
 .PHONY: test
 test: ## run tests (SUITE=single_asset make test)
 ifndef SUITE
-	@$(call test,asset.test.mligo)
+	@$(call test,asset_transfer.test.mligo)
+	@$(call test,asset_approve.test.mligo)
 else
 	@$(call test,$(SUITE).test.mligo)
 endif

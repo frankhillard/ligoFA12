@@ -26,3 +26,42 @@ let originate (init_storage : Asset.storage) =
     let contr = Test.to_contract taddr in
     let addr = Tezos.address contr in
     {addr = addr; taddr = taddr; contr = contr}
+
+let assert_allowance
+    (contract_address : (Asset.parameter, Asset.storage) typed_address )
+    (owner : address)
+    (spender : address)
+    (expected_allowance : nat) =
+    let storage = Test.get_storage contract_address in
+    let ledger = storage.ledger in
+    match (Big_map.find_opt owner ledger) with
+    | Some amt_allow -> 
+        let () = match (Map.find_opt spender amt_allow.1) with
+        | Some v -> assert (v = expected_allowance)
+        | None -> assert (expected_allowance = 0n)
+        in
+        () 
+    | None -> failwith "incorret address"
+    
+
+let assert_balances
+  (contract_address : (Asset.parameter, Asset.storage) typed_address )
+  (a, b, c : (address * nat) * (address * nat) * (address * nat)) =
+  let (owner1, balance1) = a in
+  let (owner2, balance2) = b in
+  let (owner3, balance3) = c in
+  let storage = Test.get_storage contract_address in
+  let ledger = storage.ledger in
+  let () = match (Big_map.find_opt owner1 ledger) with
+    Some amt -> assert (amt.0 = balance1)
+  | None -> failwith "incorret address"
+  in
+  let () = match (Big_map.find_opt owner2 ledger) with
+    Some amt ->  assert (amt.0 = balance2)
+  | None -> failwith "incorret address"
+  in
+  let () = match (Big_map.find_opt owner3 ledger) with
+    Some amt -> assert (amt.0 = balance3)
+  | None -> failwith "incorret address"
+  in
+  ()
