@@ -20,7 +20,6 @@ test = @$(LIGO) run test $(project_root) ./test/$(1)
 compile: ## compile contracts to Michelson
 	@mkdir -p compiled
 	@$(call compile,../test/asset.instance.mligo,asset_instance.tz,)
-	# @$(call compile,../test/asset.instance.mligo,asset_instance.json,--format json)
 
 test: ## run tests (SUITE=asset_approve make test)
 ifndef SUITE
@@ -29,6 +28,9 @@ ifndef SUITE
 else
 	@$(call test,$(SUITE).test.mligo)
 endif
+
+login:
+	@$(LIGO) login
 
 publish: ## publish package on packages.ligolang.org
 	@$(LIGO) publish
