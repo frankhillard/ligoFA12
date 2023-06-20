@@ -1,8 +1,7 @@
 
 //    /**
-//       This should be initialized at origination, conforming to either
-//       TZIP-12 : https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md#token-metadata
-//       or TZIP-16 : https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md#contract-metadata-tzip-016
+//       This should be initialized at origination, conforming to 
+//       or TZIP-16 : https://gitlab.com/marigold/tzip/-/blob/master/proposals/tzip-16/tzip-16.md
 //    */
 type data = {
     token_id : nat;

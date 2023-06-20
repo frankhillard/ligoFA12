@@ -1,18 +1,16 @@
 #import "errors.mligo" "Errors"
 
-type spender = address
-type allowed_amount = nat
-type t = (spender, allowed_amount) map
+type t = (address, nat) map
 
-let get_allowed_amount (a:t) (spender:spender) : nat =
+let get_allowed_amount (a:t) (spender:address) : nat =
     match Map.find_opt spender a with
     | Some v -> v 
     | None -> 0n
 
-let set_allowed_amount (a:t) (spender:spender) (allowed_amount:allowed_amount) : t =
+let set_allowed_amount (a:t) (spender:address) (allowed_amount: nat) : t =
         Map.add spender allowed_amount a
 
-let decrease_allowance (a:t) (spender:spender) (allowed_amount:allowed_amount) : t =
+let decrease_allowance (a:t) (spender:address) (allowed_amount: nat) : t =
     match Map.find_opt spender a with
     | Some v -> 
         let _ = assert_with_error(v >= allowed_amount) Errors.not_enough_allowance in
