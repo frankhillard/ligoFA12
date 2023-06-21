@@ -5,6 +5,18 @@
 
 type storage = Asset.storage
 
+let test_atomic_transfer_success =
+    let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
+    let (owner1, owner2, owner3) = owners in
+    let (_op1, _op2, _op3) = operators in
+
+    let transfer_1 = (owner1, (owner2, 2n)) in
+
+    let () = Test.set_source owner1 in
+    let _ = Test.transfer_to_contract_exn asset.contr (Transfer transfer_1) 0tez in
+    let () = Asset_helper.assert_balances asset.taddr ((owner1, 8n), (owner2, 12n), (owner3, 10n)) in
+    ()
+
 let test_multiple_tansfer_success =
     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
     let (owner1, owner2, owner3) = owners in
@@ -79,4 +91,4 @@ let test_failure_transfer_without_enough_balance =
     let () = Asset_helper.assert_balances asset.taddr ((owner1, 11n), (owner2, 9n), (owner3, 10n)) in
 
     let r = Test.transfer_to_contract asset.contr (Transfer transfer_2) 0tez in
-    Assert.string_failure r Asset.FA12.Errors.not_enough_balance
+    Assert.allowance_failure r Asset.FA12.Errors.not_enough_allowance
