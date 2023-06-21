@@ -29,13 +29,6 @@ let decrease_token_amount_for_user (ledger : t) (spender : address) (from_ : add
         Allowance.decrease_allowance allowances spender amount_
     in
     let _ = assert_with_error (tokens >= amount_) Errors.not_enough_balance in
-    //  TZIP-7 specifies that it should fail with requested allowance and current allowance
-    // let _ = if (allowed_amount < amount_) then
-    //     ([%Michelson ({| { FAILWITH } |} : string * (nat * nat) -> unit)]
-    //         (Errors.not_enough_allowance, (amount_, allowed_amount)) : unit)
-    // else 
-    //     () 
-    // in
     let tokens = abs(tokens - amount_) in
     let ledger = update_for_user ledger from_ tokens new_allowances in
     ledger
