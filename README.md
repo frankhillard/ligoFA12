@@ -11,14 +11,14 @@ This implementation follows the TZIP-7 standard
 
 Install the library with ligo CLI (with docker)
 ```
-ligo install ligo-fa1.2
+ligo install ligo_fa1.2
 ```
 
 This command will add a dependency in a package.json file.
 
 Here is an example of the resulting package.json file.
 ```
-{ "dependencies": { "ligo-fa1.2": "^1.0.0" } }
+{ "dependencies": { "ligo_fa1.2": "^1.0.0" } }
 ```
 
 ### Example

@@ -17,7 +17,7 @@ let test_atomic_transfer_success =
     let () = Asset_helper.assert_balances asset.taddr ((owner1, 8n), (owner2, 12n), (owner3, 10n)) in
     ()
 
-let test_multiple_tansfer_success =
+let test_multiple_transfer_success =
     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
     let (owner1, owner2, owner3) = owners in
     let (op1, _op2, _op3) = operators in
