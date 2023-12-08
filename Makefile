@@ -5,11 +5,11 @@ help:
 	awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 ifndef LIGO
-LIGO=docker run --platform linux/amd64 -u $(id -u):$(id -g) --rm -v "$(PWD)":"$(PWD)" -w "$(PWD)" ligolang/ligo:0.67.1
+LIGO=docker run --platform linux/amd64 -u $(id -u):$(id -g) --rm -v "$(PWD)":"$(PWD)" -w "$(PWD)" ligolang/ligo:1.2.0
 endif
 # ^ use LIGO en var bin if configured, otherwise use docker
 
-compile = $(LIGO) compile contract --project-root ./lib ./lib/$(1) -o ./compiled/$(2) $(3) 
+compile = $(LIGO) compile contract -m FA12_TOKEN --project-root ./lib ./lib/$(1) -o ./compiled/$(2) $(3) 
 # ^ Compile contracts to Michelson or Micheline
 
 test = @$(LIGO) run test $(project_root) ./test/$(1)

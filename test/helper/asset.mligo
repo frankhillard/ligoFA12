@@ -1,7 +1,7 @@
 #import "../asset.instance.mligo" "Asset"
 
-type taddr = (Asset.parameter, Asset.storage) typed_address
-type contr = Asset.parameter contract
+type taddr = ([@layout tree] Asset.FA12_TOKEN.parameter, Asset.FA12_TOKEN.storage) typed_address
+type contr = [@layout tree] Asset.FA12_TOKEN.parameter contract
 type originated = {
     addr: address;
     taddr: taddr;
@@ -9,7 +9,7 @@ type originated = {
 }
 
 (* Base storage *)
-let base_storage (ledger, token_metadata, total_supply, metadata : Asset.FA12.Ledger.t * Asset.FA12.TokenMetadata.t * nat * Asset.FA12.Storage.Metadata.t) : Asset.storage = {
+let base_storage (ledger, token_metadata, total_supply, metadata : Asset.FA12_TOKEN.FA12.Ledger.t * Asset.FA12_TOKEN.FA12.TokenMetadata.t * nat * Asset.FA12_TOKEN.FA12.Storage.Metadata.t) : Asset.FA12_TOKEN.storage = {
     ledger = ledger;
     token_metadata = token_metadata;
     total_supply = total_supply;
@@ -17,15 +17,16 @@ let base_storage (ledger, token_metadata, total_supply, metadata : Asset.FA12.Le
 }
 
 (* Originate a Asset contract with given init_storage storage *)
-let originate (init_storage : Asset.storage) =
-    let (taddr, _, _) = Test.originate_uncurried Asset.main init_storage 0mutez in
-    let contr = Test.to_contract taddr in
+let originate (init_storage : Asset.FA12_TOKEN.storage) =
+    // let (taddr, _, _)
+    let result = Test.originate (contract_of Asset.FA12_TOKEN) init_storage 0mutez in
+    let contr = Test.to_contract result.addr in
     let addr = Tezos.address contr in
-    {addr = addr; taddr = taddr; contr = contr}
+    {addr = addr; taddr = result.addr; contr = contr}
 
 (* Verifies allowance amount for a given owner and spender *)
 let assert_allowance
-    (contract_address : (Asset.parameter, Asset.storage) typed_address )
+    (contract_address : ([@layout tree] Asset.FA12_TOKEN.parameter, Asset.FA12_TOKEN.storage) typed_address )
     (owner : address)
     (spender : address)
     (expected_allowance : nat) =
@@ -42,7 +43,7 @@ let assert_allowance
     
 (* Verifies balances of 3 accounts *)
 let assert_balances
-  (contract_address : (Asset.parameter, Asset.storage) typed_address )
+  (contract_address : ([@layout tree] Asset.FA12_TOKEN.parameter, Asset.FA12_TOKEN.storage) typed_address )
   (a, b, c : (address * nat) * (address * nat) * (address * nat)) =
   let (owner1, balance1) = a in
   let (owner2, balance2) = b in

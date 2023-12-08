@@ -1,0 +1,21 @@
+{
+    "name": "ligo_fa1.2",
+    "version": "1.0.0",
+    "main": "./lib/asset/fa12.mligo",
+    "description": "Library of FA12",
+    "directories": {
+      "lib": "lib",
+      "test": "test"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/frankhillard/ligoFA12.git"
+    },
+    "keywords": ["ligo", "tezos", "FA12"],
+    "author": "Frank Hillard <frank.hillard@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/frankhillard/ligoFA12/issues"
+    },
+    "homepage": "https://github.com/frankhillard/ligoFA12"
+  }

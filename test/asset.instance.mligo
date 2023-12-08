@@ -1,18 +1,44 @@
-#import "../lib/asset/fa12.mligo" "FA12"
+module FA12_TOKEN = struct
 
-type storage = FA12.storage
+  #import "../lib/asset/fa12.mligo" "FA12"
 
-type parameter = [@layout:comb] 
-  Transfer of FA12.transfer 
-| Approve of FA12.approve 
-| GetAllowance of FA12.getAllowance 
-| GetBalance of FA12.getBalance 
-| GetTotalSupply of FA12.getTotalSupply
+  type storage = FA12.storage
 
-let main (p, s : parameter * storage) : operation list * storage =
-    match p with
-      Transfer p -> FA12.transfer(p, s)
-    | Approve p -> FA12.approve(p, s)
-    | GetAllowance p -> FA12.getAllowance(p, s)
-    | GetBalance p -> FA12.getBalance(p, s)
-    | GetTotalSupply p -> FA12.getTotalSupply(p, s)
+  type parameter = [@layout tree]
+  | Approve of FA12.approve 
+  | GetAllowance of FA12.getAllowance 
+  | GetBalance of FA12.getBalance 
+  | GetTotalSupply of FA12.getTotalSupply
+  | Transfer of FA12.transfer
+
+  [@entry]
+  let transfer (p: FA12.transfer) (s: storage) : operation list * storage =
+    FA12.transfer(p, s)
+
+  [@entry]
+  let approve (p: FA12.approve) (s: storage) : operation list * storage =
+    FA12.approve(p, s)
+  
+  [@entry]
+  let getAllowance (p: FA12.getAllowance) (s: storage) : operation list * storage =
+    FA12.getAllowance(p, s)
+
+  [@entry]
+  let getBalance (p: FA12.getBalance) (s: storage) : operation list * storage =
+    FA12.getBalance(p, s)
+
+  [@entry]
+  let getTotalSupply (p: FA12.getTotalSupply) (s: storage) : operation list * storage =
+    FA12.getTotalSupply(p, s)
+
+
+  // [@entry]
+  // let main (p: parameter) (s: storage) : operation list * storage =
+  //     match p with
+  //       Transfer p -> FA12.transfer p s
+  //     | Approve p -> FA12.approve(p, s)
+  //     | GetAllowance p -> FA12.getAllowance(p, s)
+  //     | GetBalance p -> FA12.getBalance(p, s)
+  //     | GetTotalSupply p -> FA12.getTotalSupply(p, s)
+
+end
