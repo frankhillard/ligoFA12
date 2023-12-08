@@ -8,4 +8,4 @@ type data = {
     token_info : (string, bytes) map;
 }
 
-type t = data
+type t = (nat, data) big_map
