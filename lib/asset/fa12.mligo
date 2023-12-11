@@ -8,7 +8,7 @@ type storage = Storage.t
 
 // /** transfer entrypoint */
 type transfer = (address * (address * nat))
-let transfer ((from_, to_value), s : transfer * storage) : operation list * storage =
+let transfer ((from_, to_value), s: transfer * storage) : operation list * storage =
    let (to_, value) = to_value in
    let ledger1 = Storage.get_ledger s in
    let ledger2 = Ledger.decrease_token_amount_for_user ledger1 (Tezos.get_sender ()) from_ value in
@@ -46,11 +46,9 @@ let getTotalSupply ((_,callback), s : getTotalSupply * storage) : operation list
    let operation = Tezos.transaction s.total_supply 0tez callback in
    ([operation], s)
 
-type parameter = 
-| Transfer of transfer 
-| Approve of approve 
-| GetAllowance of getAllowance 
-| GetBalance of getBalance 
-| GetTotalSupply of getTotalSupply
-
-
+// type parameter = 
+// | Transfer of transfer 
+// | Approve of approve 
+// | GetAllowance of getAllowance 
+// | GetBalance of getBalance 
+// | GetTotalSupply of getTotalSupply

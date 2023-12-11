@@ -18,10 +18,10 @@ let base_storage (ledger, token_metadata, total_supply, metadata : Asset.FA12.Le
 
 (* Originate a Asset contract with given init_storage storage *)
 let originate (init_storage : Asset.storage) =
-    let (taddr, _, _) = Test.originate_uncurried Asset.main init_storage 0mutez in
-    let contr = Test.to_contract taddr in
+    let result = Test.originate (contract_of Asset) init_storage 0mutez in
+    let contr = Test.to_contract result.addr in
     let addr = Tezos.address contr in
-    {addr = addr; taddr = taddr; contr = contr}
+    {addr = addr; taddr = result.addr; contr = contr}
 
 (* Verifies allowance amount for a given owner and spender *)
 let assert_allowance
@@ -42,7 +42,7 @@ let assert_allowance
     
 (* Verifies balances of 3 accounts *)
 let assert_balances
-  (contract_address : (Asset.parameter, Asset.storage) typed_address )
+  (contract_address : ((Asset.parameter), Asset.storage) typed_address )
   (a, b, c : (address * nat) * (address * nat) * (address * nat)) =
   let (owner1, balance1) = a in
   let (owner2, balance2) = b in

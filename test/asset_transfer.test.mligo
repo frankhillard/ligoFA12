@@ -13,7 +13,7 @@ let test_atomic_transfer_success =
     let transfer_1 = (owner1, (owner2, 2n)) in
 
     let () = Test.set_source owner1 in
-    let _ = Test.transfer_to_contract_exn asset.contr (Transfer transfer_1) 0tez in
+    let _ = Test.transfer_exn asset.taddr (Transfer (transfer_1)) 0tez in
     let () = Asset_helper.assert_balances asset.taddr ((owner1, 8n), (owner2, 12n), (owner3, 10n)) in
     ()
 

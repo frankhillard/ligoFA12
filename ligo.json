@@ -1,6 +1,6 @@
 {
     "name": "ligo_fa1.2",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "main": "./lib/asset/fa12.mligo",
     "description": "Library of FA12",
     "directories": {

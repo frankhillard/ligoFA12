@@ -45,10 +45,9 @@ make test
 ```
 
 ### Publishing to Ligolang
-
-To publish this repository on https://packages.ligolang.org/packages
 (For members only)
+To publish this repository on https://packages.ligolang.org/packages
 ```
-make login
-make publish
+ligo login
+ligo publish
 ```

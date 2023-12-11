@@ -29,8 +29,9 @@ let boot_asset_and_accounts (a, b, c : nat * nat * nat) =
     in
 
     let token_info = (Map.empty: (string, bytes) map) in
-    let token_metadata = 
-        { token_id   = 0n; token_info = token_info; }
+    let token_metadata = Big_map.literal([ 
+        (0n, { token_id   = 0n; token_info = token_info; })
+    ])
     in
     let metadata = Big_map.literal([
         ("", Bytes.pack("tezos-storage:contents"));
