@@ -29,9 +29,3 @@ ifndef SUITE
 else
 	@$(call test,$(SUITE).test.mligo)
 endif
-
-login:
-	@$(LIGO) login
-
-publish: ## publish package on packages.ligolang.org
-	@$(LIGO) publish

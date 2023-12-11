@@ -3,7 +3,7 @@
 type storage = FA12.storage
 
 type parameter = [@layout comb] 
-| X of unit
+| X of unit     // You can add an additionnal entrypoint to implement a specific feature for the token
 | GetTotalSupply of FA12.getTotalSupply
 | GetBalance of FA12.getBalance  
 | GetAllowance of FA12.getAllowance 
