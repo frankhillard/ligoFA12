@@ -25,6 +25,7 @@ test: ## run tests (SUITE=asset_approve make test)
 ifndef SUITE
 	@$(call test,asset_transfer.test.mligo)
 	@$(call test,asset_approve.test.mligo)
+	@$(call test,asset_extra_entrypoint.test.mligo)
 else
 	@$(call test,$(SUITE).test.mligo)
 endif
