@@ -3,7 +3,7 @@
 #import "./helper/asset.mligo" "Asset_helper"
 #import "./asset.instance.mligo" "Asset"
 
-type storage = Asset.FA12_TOKEN.storage
+type storage = Asset.storage
 
 let test_atomic_transfer_success =
     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
@@ -43,7 +43,7 @@ let test_failure_transfer_without_enough_allowance =
     let () = Test.set_source op2 in
     let transfer_1 = (owner2, (owner1, 6n)) in
     let r = Test.transfer_to_contract asset.contr (Transfer transfer_1) 0tez in
-    Assert.allowance_failure r Asset.FA12_TOKEN.FA12.Errors.not_enough_allowance
+    Assert.allowance_failure r Asset.FA12.Errors.not_enough_allowance
 
 let test_success_transfer_allowance_must_decrease =
     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
@@ -75,7 +75,7 @@ let test_failure_owner_transfer_without_enough_balance =
     let () = Test.set_source owner2 in
     let transfer_1 = (owner2, (owner1, 11n)) in
     let r = Test.transfer_to_contract asset.contr (Transfer transfer_1) 0tez in
-    Assert.string_failure r Asset.FA12_TOKEN.FA12.Errors.not_enough_balance
+    Assert.string_failure r Asset.FA12.Errors.not_enough_balance
 
 let test_failure_transfer_without_enough_balance =
     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
@@ -91,4 +91,4 @@ let test_failure_transfer_without_enough_balance =
     let () = Asset_helper.assert_balances asset.taddr ((owner1, 11n), (owner2, 9n), (owner3, 10n)) in
 
     let r = Test.transfer_to_contract asset.contr (Transfer transfer_2) 0tez in
-    Assert.allowance_failure r Asset.FA12_TOKEN.FA12.Errors.not_enough_allowance
+    Assert.allowance_failure r Asset.FA12.Errors.not_enough_allowance

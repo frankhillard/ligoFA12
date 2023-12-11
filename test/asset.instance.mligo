@@ -1,5 +1,3 @@
-module FA12_TOKEN = struct
-
   #import "../lib/asset/fa12.mligo" "FA12"
 
   type storage = FA12.storage
@@ -31,15 +29,3 @@ module FA12_TOKEN = struct
   [@entry]
   let getTotalSupply (p: FA12.getTotalSupply) (s: storage) : operation list * storage =
     FA12.getTotalSupply(p, s)
-
-
-  // [@entry]
-  // let main (p: parameter) (s: storage) : operation list * storage =
-  //     match p with
-  //       Transfer p -> FA12.transfer p s
-  //     | Approve p -> FA12.approve(p, s)
-  //     | GetAllowance p -> FA12.getAllowance(p, s)
-  //     | GetBalance p -> FA12.getBalance(p, s)
-  //     | GetTotalSupply p -> FA12.getTotalSupply(p, s)
-
-end

@@ -9,7 +9,7 @@ LIGO=docker run --platform linux/amd64 -u $(id -u):$(id -g) --rm -v "$(PWD)":"$(
 endif
 # ^ use LIGO en var bin if configured, otherwise use docker
 
-compile = $(LIGO) compile contract -m FA12_TOKEN --project-root ./lib ./lib/$(1) -o ./compiled/$(2) $(3) 
+compile = $(LIGO) compile contract  --project-root ./lib ./lib/$(1) -o ./compiled/$(2) $(3) 
 # ^ Compile contracts to Michelson or Micheline
 
 test = @$(LIGO) run test $(project_root) ./test/$(1)

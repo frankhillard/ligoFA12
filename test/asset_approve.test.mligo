@@ -3,7 +3,7 @@
 #import "./helper/asset.mligo" "Asset_helper"
 #import "./asset.instance.mligo" "Asset"
 
-type storage = Asset.FA12_TOKEN.storage
+type storage = Asset.storage
 
 let test_success_approve =
     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
@@ -25,7 +25,7 @@ let test_failure_approve_modify_allowance =
     let () = Test.set_source owner1 in
     let approve_op1 = (op1, 1n) in
     let r = Test.transfer_to_contract asset.contr (Approve approve_op1) 0tez in
-    Assert.string_failure r Asset.FA12_TOKEN.FA12.Errors.vulnerable_operation
+    Assert.string_failure r Asset.FA12.Errors.vulnerable_operation
 
 let test_success_approve_modify_allowance =
     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in
