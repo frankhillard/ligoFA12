@@ -75,7 +75,7 @@ let test_failure_owner_transfer_without_enough_balance =
     let () = Test.set_source owner2 in
     let transfer_1 = (owner2, (owner1, 11n)) in
     let r = Test.transfer_to_contract asset.contr (Transfer transfer_1) 0tez in
-    Assert.string_failure r Asset.FA12.Errors.not_enough_balance
+    Assert.string_failure r Asset.FA12_TOKEN.FA12.Errors.not_enough_balance
 
 // let test_failure_transfer_without_enough_balance =
 //     let (asset, owners, operators) = Bootstrap.boot_asset_and_accounts(10n, 10n, 10n) in

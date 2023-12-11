@@ -4,12 +4,13 @@ module FA12_TOKEN = struct
 
   type storage = FA12.storage
 
-  type parameter = [@layout tree]
-  | Approve of FA12.approve 
-  | GetAllowance of FA12.getAllowance 
-  | GetBalance of FA12.getBalance 
+  type parameter = [@layout comb] 
   | GetTotalSupply of FA12.getTotalSupply
+  | GetBalance of FA12.getBalance  
+  | GetAllowance of FA12.getAllowance 
+  | Approve of FA12.approve 
   | Transfer of FA12.transfer
+
 
   [@entry]
   let transfer (p: FA12.transfer) (s: storage) : operation list * storage =
