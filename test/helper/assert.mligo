@@ -25,13 +25,12 @@ let tx_success (res: test_exec_result) : unit =
 //   let _ = Test.transfer_to_contract_exn (Test.to_contract taux) () 0tez in
 //   Option.unopt (Test.get_storage taux)
 
-// (* Assert contract call results in failwith with given `"notEnoughAllowance" (required, current)` format *)
-// let allowance_failure (res : test_exec_result) (expected : string) : unit =
-//     // let expected = Test.eval expected in // instead of decompile_hack
-//     match res with
-//         | Fail (Rejected (actual,_)) -> 
-//             let ec : string * (nat * nat) = decompile_hack actual in
-//             assert (ec.0 = expected)
-//         | Fail (Balance_too_low _err) -> Test.failwith "contract failed: balance too low"
-//         | Fail (Other s) -> Test.failwith s
-//         | Success _ -> Test.failwith "Transaction should fail"
+(* Assert contract call results in failwith with given `"notEnoughAllowance" (required, current)` format *)
+let allowance_failure (res : test_exec_result) (expected : string) : unit =
+    match res with
+        | Fail (Rejected (actual,_)) -> 
+            let ec : string * (nat * nat) = Test.decompile actual in
+            assert (ec.0 = expected)
+        | Fail (Balance_too_low _err) -> Test.failwith "contract failed: balance too low"
+        | Fail (Other s) -> Test.failwith s
+        | Success _ -> Test.failwith "Transaction should fail"

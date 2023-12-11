@@ -1,7 +1,7 @@
 #import "../asset.instance.mligo" "Asset"
 
-type taddr = ([@layout tree] Asset.FA12_TOKEN.parameter, Asset.FA12_TOKEN.storage) typed_address
-type contr = [@layout tree] Asset.FA12_TOKEN.parameter contract
+type taddr = (Asset.FA12_TOKEN.parameter, Asset.FA12_TOKEN.storage) typed_address
+type contr = Asset.FA12_TOKEN.parameter contract
 type originated = {
     addr: address;
     taddr: taddr;
@@ -18,16 +18,14 @@ let base_storage (ledger, token_metadata, total_supply, metadata : Asset.FA12_TO
 
 (* Originate a Asset contract with given init_storage storage *)
 let originate (init_storage : Asset.FA12_TOKEN.storage) =
-    // let (taddr, _, _)
     let result = Test.originate (contract_of Asset.FA12_TOKEN) init_storage 0mutez in
-    // let () = Test.log(result) in
     let contr = Test.to_contract result.addr in
     let addr = Tezos.address contr in
     {addr = addr; taddr = result.addr; contr = contr}
 
 (* Verifies allowance amount for a given owner and spender *)
 let assert_allowance
-    (contract_address : ([@layout tree] Asset.FA12_TOKEN.parameter, Asset.FA12_TOKEN.storage) typed_address )
+    (contract_address : (Asset.FA12_TOKEN.parameter, Asset.FA12_TOKEN.storage) typed_address )
     (owner : address)
     (spender : address)
     (expected_allowance : nat) =
@@ -44,7 +42,7 @@ let assert_allowance
     
 (* Verifies balances of 3 accounts *)
 let assert_balances
-  (contract_address : ([@layout tree] (Asset.FA12_TOKEN.parameter), Asset.FA12_TOKEN.storage) typed_address )
+  (contract_address : ((Asset.FA12_TOKEN.parameter), Asset.FA12_TOKEN.storage) typed_address )
   (a, b, c : (address * nat) * (address * nat) * (address * nat)) =
   let (owner1, balance1) = a in
   let (owner2, balance2) = b in
