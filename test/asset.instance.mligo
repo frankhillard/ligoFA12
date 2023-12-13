@@ -3,13 +3,12 @@
 type storage = FA12.storage
 
 type parameter = [@layout comb] 
-| X of unit     // You can add an additionnal entrypoint to implement a specific feature for the token
-| GetTotalSupply of FA12.getTotalSupply
-| GetBalance of FA12.getBalance  
-| GetAllowance of FA12.getAllowance 
-| Approve of FA12.approve 
 | Transfer of FA12.transfer
-
+| Approve of FA12.approve 
+| GetAllowance of FA12.getAllowance 
+| GetBalance of FA12.getBalance  
+| GetTotalSupply of FA12.getTotalSupply
+| X of unit     // You can add an additionnal entrypoint to implement a specific feature for the token
 
 [@entry]
 let transfer (p: FA12.transfer) (s: storage) : operation list * storage =
